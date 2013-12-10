@@ -1,0 +1,11 @@
+{
+  "name": "l4",
+  "description": "",
+  "version": "0.1.0",
+  "author": "Paul Nordmann <paul.nordmann@klab-berlin.com>",
+  "dependencies": {
+	"xml2js" : "latest"
+  },
+  "devDependencies": {},
+  "engine": "node = 0.10.13"
+}
