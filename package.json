@@ -7,5 +7,9 @@
 	"xml2js" : "latest"
   },
   "devDependencies": {},
-  "engine": "node = 0.10.13"
+  "engine": "node = 0.10.13",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Klab-Berlin/node-l4"
+  }
 }
