@@ -6,7 +6,9 @@
   "dependencies": {
 	"xml2js" : "latest"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "should" : "latest"
+  },
   "engine": "node = 0.10.13",
   "repository": {
     "type": "git",
