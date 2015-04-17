@@ -2,7 +2,15 @@ var cl = require('./helper').getContextLinksInstance();
 	
 describe("contextLinks - project and index management", function() {		
 	var indexId = 'testIndex_' + Date.now(),
-		projectId = 'testProject_' + Date.now();
+		projectId = 'testProject_' + Date.now(),
+		docId = 'testDocument_' + Date.now(),
+		docData = {
+		id : docId,
+		language : 'de',
+		title : 'Lorem ipsum',
+		body : 'Lorem ipsum dolor sit amet...',
+		docid : docId
+	}
 	
 	it("should return all indexes", function(done){
 		cl.getListOfIndices(function(err, data){
@@ -51,6 +59,31 @@ describe("contextLinks - project and index management", function() {
 			done();
 		})
 	});
+	
+	it('should insert an document', function(done) {
+		var parameter = {
+			indexId : indexId,
+			data : docData
+		}, options = {};
+		
+		options.index = {
+			title : "tokenized",
+			body : "tokenized"
+		}
+		options.termVector = {
+			title :  'withPositionsOffsets',
+			body : 'withPositionsOffsets'
+		};
+		
+		cl.insert(parameter, options, function(err, data){
+			(err == null).should.be.true;
+			data.should.be.an.Object;
+			data.command.should.equal('insert');
+			data.indexId.should.equal(indexId);
+			data.docId.should.equal(docId);
+			done();
+		})
+	})
 	
 	it('should create a project ' + projectId, function(done){
 		var parameter = {
@@ -128,6 +161,37 @@ describe("contextLinks - project and index management", function() {
 				foundedIndex  = foundedIndex || index.indexId === indexId;
 			});
 			foundedIndex.should.be.true;
+			done();
+		});
+	});
+	
+	it('should be one document in the project', function(done){
+		var parameter = {
+			projectId : projectId
+		}
+		cl.searchDocs(parameter, function(err, data){
+			(err === null).should.be.true;
+			data.length.should.equal('1');
+			data.number.should.equal('1');
+			data.document.should.be.an.Array.with.lengthOf(1);
+			data.document[0].id.should.equal(docId);
+			data.document[0].docId.should.equal(docId);
+			done();
+		})
+		
+	});
+	
+	it('should remove the document from index', function(done){
+		var parameter = {
+			indexId : indexId,
+			docId : docId
+		}
+		cl.delete(parameter, function(err, data){
+			(err === null).should.be.true;
+			data.should.be.an.Object;
+			data.command.should.equal('delete')
+			data.indexId.should.equal(indexId)
+			data.docId.should.equal(docId)
 			done();
 		});
 	});
