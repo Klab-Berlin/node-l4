@@ -165,17 +165,21 @@ describe("contextLinks - project and index management", function() {
 		});
 	});
 	
-	it('should be one document in the project', function(done){
+	it('should be one document in the project with all insert values', function(done){
 		var parameter = {
-			projectId : projectId
+			projectId : projectId,
+			fieldList : ['id', 'language', 'title', 'body', 'docid']
 		}
 		cl.searchDocs(parameter, function(err, data){
 			(err === null).should.be.true;
-			data.length.should.equal('1');
-			data.number.should.equal('1');
+			data.length.should.equal(1);
+			data.number.should.equal(1);
 			data.document.should.be.an.Array.with.lengthOf(1);
 			data.document[0].id.should.equal(docId);
 			data.document[0].docId.should.equal(docId);
+			data.document[0].language.should.equal(docData.language);
+			data.document[0].body.should.equal(docData.body);
+			data.document[0].title.should.equal(docData.title);
 			done();
 		})
 		

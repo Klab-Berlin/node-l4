@@ -1,6 +1,6 @@
 var LuceneDocument = require('../lib/luceneDocument');
 
-describe("contextLinks - searchDocs", function() {
+describe("lucene Document", function() {
 	var luceneDocument, xmlArray = [];
 	var data = {
 		id : 23248642836,
