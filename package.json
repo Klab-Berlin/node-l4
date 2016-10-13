@@ -1,7 +1,7 @@
 {
   "name": "l4",
   "description": "",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "author": "Paul Nordmann <paul.nordmann@klab-berlin.com>",
   "dependencies": {
 	"xml2js" : "latest"
